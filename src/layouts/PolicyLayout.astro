@@ -1,0 +1,24 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { frontmatter } = Astro.props;
+---
+<BaseLayout title={`${frontmatter.title} - Privacy Policy`} description={frontmatter.description}>
+    <nav class="mb-8">
+        <a href="/" class="text-blue-600 hover:text-blue-800 font-semibold inline-flex items-center transition-colors">
+            &larr; Back to Products
+        </a>
+    </nav>
+    
+    <article class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100">
+        <header class="mb-8 border-b border-gray-100 pb-6">
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 mb-2">
+                {frontmatter.title}
+            </h1>
+            <p class="text-gray-500 font-medium">Privacy Policy</p>
+        </header>
+        
+        <div class="prose prose-blue max-w-none">
+            <slot />
+        </div>
+    </article>
+</BaseLayout>

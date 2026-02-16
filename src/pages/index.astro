@@ -1,17 +1,36 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css'
+// Dynamically fetch all markdown files from the policies folder
+const policies = await Astro.glob('./policies/*.md');
 ---
+<BaseLayout title="Our Products" description="Browse AIEPEXHUB products and review their privacy policies.">
+    
+    <header class="mb-16 text-center mt-8">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
+            AIEPEXHUB Products
+        </h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Select a product below to review its dedicated privacy policy and data compliance documentation.
+        </p>
+    </header>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {policies.map((policy) => (
+            <a href={policy.url} class="group block h-full outline-none">
+                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-blue-500 hover:-translate-y-1 h-full flex flex-col cursor-pointer focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent">
+                    <h2 class="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-3">
+                        {policy.frontmatter.title}
+                    </h2>
+                    <p class="text-gray-600 flex-grow leading-relaxed">
+                        {policy.frontmatter.description}
+                    </p>
+                    <div class="mt-8 text-sm font-bold text-blue-600 inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+                        View Privacy Policy <span aria-hidden="true">&rarr;</span>
+                    </div>
+                </div>
+            </a>
+        ))}
+    </div>
+
+</BaseLayout>
